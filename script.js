@@ -13,6 +13,8 @@ const recipeImage = document.querySelector('.recipe-container__image');
 const recipeIngredients = document.querySelector('.recipe-container__ingredients');
 const recipeInstructions = document.querySelector('.recipe-container__instructions');
 const backToRecipeBtn = document.querySelector('.recipe-container__close-btn');
+const popup = document.querySelector('.popup');
+const closePopupBtn = document.querySelector('.popup__close-btn');
 
 let recipeIdByCategory= [];
 let randomRecipeId = [];
@@ -68,12 +70,29 @@ const getRecipeByCategory = async categoryName => {
     }    
 }
 
-const checkInput = e => {
-    if(e.key === 'Enter') {
-        const value = input.value;
-        recipesArea.innerHTML = '';
-        getRecipeByInput(value, e);
+const checkKey = e => {
+    const value = input.value;   
+    if(e.key === 'Enter' && value !== '') {
+        validateInput(value);
     }
+}
+
+const validateInput = inputValue => {
+    const re = /^[a-zA-Z\s]+$/;
+    if(re.test(inputValue)) {
+        getRecipeByInput(inputValue);
+    } else {
+        popup.classList.add('show');
+        showShadow();
+    }
+}
+
+const showShadow = () => {
+    shadow.classList.add('show');
+}
+
+const removeShadow = () => {
+    shadow.classList.remove('show');
 }
 
 const getRecipeByInput = async value => {
@@ -81,6 +100,7 @@ const getRecipeByInput = async value => {
         const url = await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${value}&number=9&apiKey=${apiKey}`);
         const responseJson = await url.json();
         console.log(responseJson)
+        recipesArea.innerHTML = '';
         if(responseJson.results.length !== 0) {
             for(let i = 0; i < responseJson.results.length; i++ ) {
                 if(responseJson.results[i].image && !recipeIdByInput.includes(responseJson.results[i].id)) {
@@ -131,8 +151,8 @@ const getRecipe = async id => {
     try {
         const url = await fetch(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`);
         const responseJson = await url.json();
+        showShadow();
         recipeContainer.style.display = 'grid';
-        shadow.style.display = 'block';
         recipeIngredients.innerHTML = '';
         recipeInstructions.innerHTML = '';
         const titleListIngredients = document.createElement('h4');
@@ -172,7 +192,7 @@ const getRecipe = async id => {
 }
 
 input.addEventListener('keyup', e => {
-    checkInput(e);
+    checkKey(e);
 });
 
 categories.forEach(category => {
@@ -192,7 +212,12 @@ categories.forEach(category => {
 
 backToRecipeBtn.addEventListener('click', () => {
     recipeContainer.style.display = 'none';
-    shadow.style.display = 'none';
+    removeShadow();
 });
+
+closePopupBtn.addEventListener('click', () => {
+    popup.classList.remove('show');
+    removeShadow();
+})
 
 getRandomRecipies();
