@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/ae5e81fa28.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <header class="header">
+        <h1 class="header__logo">Recipe</h1>
+    </header>    
+    <div class="container"> 
+        <input type="text" class="search-recipe" placeholder="Search recipe">
+        <div class="categories">
+            <div class="categories__category categories__category--first">breakfast</div>
+            <div class="categories__category categories__category--second">main course</div>
+            <div class="categories__category categories__category--third">dessert</div>
+            <div class="categories__category categories__category--fourth">snack</div>
+        </div>
+        <div class="recipes-area">
+            <!-- <p class="recipes-area__error">No recipe found :(</p> -->
+        </div>
+        <div class="shadow"></div>
+        <div class="recipe-container">            
+            <h3 class="recipe-container__name">Cupcakes with vegetables</h3>
+            <div class="recipe-container__details">
+                <p class="recipe-container__detail recipe-container__time">45min<i class="far fa-clock"></i></p>
+                <p class="recipe-container__detail recipe-container__servings">4<i class="fas fa-user"></i></p>
+            </div>
+            <img src="./647261-556x370.jpg" alt="" class="recipe-container__image">
+            <ul class="recipe-container__ingredients">
+            <h4 class="recipe-container__title-list">Ingredients</h4>
+               <li>herbatniki</li>
+               <li>galaretka</li>
+               <li>twaróg</li>
+               <li>cukier pudrem</li>
+               <li>śietanka kremówka</li>
+            </ul>
+            <ul class="recipe-container__instructions">
+                <h4 class="recipe-container__title-list">Instructions</h4>
+            </ul>     
+            <i class="fas fa-arrow-left recipe-container__close-btn"></i>     
+        </div>
+    </div> 
+    <script src="./script.js"></script>
+</body>
+</html>
+
+
