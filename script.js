@@ -58,7 +58,9 @@ const getRecipeByCategory = async categoryName => {
             if(responseJson.recipes[i].image && !recipeIdByCategory.includes(responseJson.recipes[i].id)) {
                 createRecipeBox(responseJson.recipes[i].image, responseJson.recipes[i].title, responseJson.recipes[i].id);   
                 recipeIdByCategory.push(responseJson.recipes[i].id);
-            }       
+            } else {
+                i--;
+            }      
         }
         const btn = document.querySelector('.recipes-area__load-more-btn');
         if(btn !== null) {
@@ -106,9 +108,7 @@ const getRecipeByInput = async value => {
                 if(responseJson.results[i].image && !recipeIdByInput.includes(responseJson.results[i].id)) {
                     createRecipeBox(responseJson.results[i].image, responseJson.results[i].title, responseJson.results[i].id);
                     recipeIdByInput.push(responseJson.results[i].id); 
-                } else {
-                    i--;
-                }
+                } 
             }          
             if(responseJson.results.length === 9) {
                 const btn = document.querySelector('.recipes-area__load-more-btn');
@@ -199,13 +199,13 @@ categories.forEach(category => {
     category.addEventListener('click', () => {  
         recipesArea.innerHTML = '';     
         if(category.textContent === 'breakfast') {           
-            getRecipeByCategory('breakfast', []);            
+            getRecipeByCategory('breakfast');            
         } else if (category.textContent === 'main course') {           
-            getRecipeByCategory('main course', []);            
+            getRecipeByCategory('main course');            
         } else if (category.textContent === 'dessert') {
-            getRecipeByCategory('dessert', []);            
+            getRecipeByCategory('dessert');            
         } else if (category.textContent === 'snack') {
-            getRecipeByCategory('snack', []);
+            getRecipeByCategory('snack');
         }        
     })
 });
@@ -216,8 +216,7 @@ backToRecipeBtn.addEventListener('click', () => {
 });
 
 closePopupBtn.addEventListener('click', () => {
-    popup.classList.remove('show');
-    removeShadow();
+    popup.classList.remove('show'); removeShadow();
 })
 
 getRandomRecipies();
